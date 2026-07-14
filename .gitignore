@@ -8,6 +8,8 @@ data/staging/
 # (xlsx are zip binaries git can't delta; weekly rebuilds would bloat history forever)
 data/excel_tables/
 data/csv/
+data/*.zip          # csv_all.zip bundle — regenerated + uploaded to the release
+data/*.tar.gz       # raw-cache archive for the data-cache release
 
 # run logs — regenerated each run (created via shell redirection, not by the code)
 logs/
