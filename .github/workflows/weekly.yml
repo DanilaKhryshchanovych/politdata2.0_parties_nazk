@@ -1,0 +1,94 @@
+name: weekly
+
+# Щотижневе оновлення таблиць партійних фінзвітів.
+# Стратегія кешу «А»: сирий кеш (~1.5 ГБ) зберігається як асет службового
+# передрелізу `data-cache`. Кожен запуск: дістає кеш → докачує ЛИШЕ нове з API
+# НАЗК (downloader/card_downloader інкрементальні) → перебудовує 20 таблиць →
+# кладе кеш назад і публікує таблиці у реліз `latest`. Так хмара ніколи не
+# качає всі 74k звітів заново (це б займало >6 год і не влізло б у ліміт задачі).
+
+on:
+  schedule:
+    - cron: '0 5 * * 1'      # Понеділок 05:00 UTC ≈ 08:00 Київ (влітку; взимку 09:00)
+  workflow_dispatch: {}       # ручний запуск кнопкою "Run workflow"
+
+permissions:
+  contents: write             # створювати/оновлювати релізи + пушити оновлений README
+
+concurrency:
+  group: weekly               # не дати двом запускам накластися на той самий кеш
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330      # < 360 (ліміт GitHub); інкрементальний прохід укладається
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Sanity — cleaning unit tests
+        run: python -m pytest -q tests/
+
+      - name: Restore raw cache from data-cache release
+        run: |
+          mkdir -p data/raw data/state
+          if gh release download data-cache --pattern 'cache.tar.gz' --dir . ; then
+            echo "cache found — extracting"
+            tar -xzf cache.tar.gz
+            rm -f cache.tar.gz
+          else
+            echo "::warning::no data-cache release yet — COLD start (may exceed the time limit)"
+          fi
+
+      - name: Download new reports (incremental)
+        run: python -m src.downloader
+
+      - name: Download new party cards (incremental)
+        run: python -m src.card_downloader
+
+      - name: Save raw cache back to data-cache release
+        if: always()            # зберегти докачане навіть якщо збірка нижче впаде
+        run: |
+          if [ -d data/raw ] && [ -n "$(ls -A data/raw 2>/dev/null)" ]; then
+            tar -czf cache.tar.gz data/raw data/state
+            gh release view data-cache >/dev/null 2>&1 || \
+              gh release create data-cache --prerelease \
+                --title "raw cache (службовий, не для завантаження)" \
+                --notes "Інкрементальний сирий кеш для щотижневого робота. Передреліз, щоб не перебивати latest."
+            gh release upload data-cache cache.tar.gz --clobber
+          fi
+
+      - name: Build tables (xlsx + csv)
+        run: python main.py --restage
+
+      - name: Bundle CSVs into one archive
+        run: |
+          cd data/csv && zip -q -X ../csv_all.zip *.csv
+
+      - name: Publish tables to latest release
+        run: |
+          gh release upload latest data/excel_tables/*.xlsx data/csv_all.zip --clobber
+
+      - name: Commit refreshed README timestamp
+        run: |
+          git config user.name  "politdata-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- README.md; then
+            git add README.md
+            git commit -m "chore: оновлено дату останнього оновлення [skip ci]"
+            git push
+          else
+            echo "README unchanged — nothing to commit"
+          fi
