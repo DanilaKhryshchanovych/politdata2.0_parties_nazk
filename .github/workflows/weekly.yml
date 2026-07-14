@@ -81,14 +81,21 @@ jobs:
         run: |
           gh release upload latest data/excel_tables/*.xlsx data/csv_all.zip --clobber
 
-      - name: Commit refreshed README timestamp
+      - name: Commit refreshed README timestamp (best-effort)
         run: |
           git config user.name  "politdata-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- README.md; then
-            git add README.md
-            git commit -m "chore: оновлено дату останнього оновлення [skip ci]"
-            git push
-          else
-            echo "README unchanged — nothing to commit"
+          if git diff --quiet -- README.md; then
+            echo "README unchanged — nothing to commit"; exit 0
           fi
+          git add README.md
+          git commit -m "chore: оновлено дату останнього оновлення [skip ci]"
+          # Rebase onto any commits that landed since checkout, then push. Cosmetic
+          # step: the tables are already published, so a push hiccup must not fail the run.
+          for i in 1 2 3; do
+            if git pull --rebase --autostash origin "$GITHUB_REF_NAME" && git push; then
+              echo "README stamp pushed"; exit 0
+            fi
+            echo "push attempt $i failed — retrying"; sleep 3
+          done
+          echo "::warning::README stamp could not be pushed (tables were published anyway); next run will retry"
