@@ -1,0 +1,31 @@
+# raw API cache and pipeline state — regenerated, not versioned
+data/raw/
+data/state/*.txt
+data/state/*.json
+data/staging/
+
+# built tables — published to GitHub Releases each run, NOT committed to git history
+# (xlsx are zip binaries git can't delta; weekly rebuilds would bloat history forever)
+data/excel_tables/
+data/csv/
+
+# run logs — regenerated each run (created via shell redirection, not by the code)
+logs/
+
+# exploration dumps (large, regenerated)
+exploration/samples/
+
+# cloned reference repo (has its own history)
+reference/old_repo/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# os
+Thumbs.db
+.DS_Store

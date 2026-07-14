@@ -1,0 +1,23 @@
+[
+ "donor_name",
+ "donor_edrpou",
+ "donor_type",
+ "donor_birth_date",
+ "donor_location",
+ "bank_name",
+ "bank_edrpou",
+ "bank_account",
+ "donation_date",
+ "donation_sum",
+ "donation_refund_sum",
+ "officeType",
+ "report_type",
+ "report_period",
+ "report_year",
+ "legal_entity_name",
+ "legal_entity_edrpou",
+ "legal_entity_region",
+ "party_main_name",
+ "party_main_EDRPOU",
+ "report_id"
+]

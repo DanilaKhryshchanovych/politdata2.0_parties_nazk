@@ -1,0 +1,19 @@
+[
+ "asset_type",
+ "asset_amount",
+ "date_of_acquisition_of_the_right",
+ "asset_value",
+ "asset_description",
+ "type_of_use",
+ "alienation_date",
+ "officeType",
+ "report_type",
+ "report_period",
+ "report_year",
+ "legal_entity_name",
+ "legal_entity_edrpou",
+ "legal_entity_region",
+ "party_main_name",
+ "party_main_EDRPOU",
+ "report_id"
+]

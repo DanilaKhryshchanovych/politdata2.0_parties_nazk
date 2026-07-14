@@ -1,0 +1,21 @@
+[
+ "obligation_type",
+ "reason",
+ "date_of_occurrence",
+ "name",
+ "edrpou",
+ "location",
+ "obligations_sum",
+ "amount_not_yet_paid",
+ "type",
+ "officeType",
+ "report_type",
+ "report_period",
+ "report_year",
+ "legal_entity_name",
+ "legal_entity_edrpou",
+ "legal_entity_region",
+ "party_main_name",
+ "party_main_EDRPOU",
+ "report_id"
+]

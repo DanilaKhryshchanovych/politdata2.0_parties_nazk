@@ -1,0 +1,22 @@
+[
+ "income_type",
+ "income_description",
+ "sender_name",
+ "sender_type",
+ "income_date",
+ "bank_name",
+ "bank_edrpou",
+ "bank_account",
+ "income_sum",
+ "object_registration_number",
+ "officeType",
+ "report_type",
+ "report_period",
+ "report_year",
+ "legal_entity_name",
+ "legal_entity_edrpou",
+ "legal_entity_region",
+ "party_main_name",
+ "party_main_EDRPOU",
+ "report_id"
+]

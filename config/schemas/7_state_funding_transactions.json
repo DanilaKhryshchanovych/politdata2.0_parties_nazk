@@ -1,0 +1,18 @@
+[
+ "state_funding_form",
+ "bank_name",
+ "bank_edrpou",
+ "bank_account",
+ "transaction_date",
+ "transaction_sum",
+ "refund_sum",
+ "officeType",
+ "report_type",
+ "report_period",
+ "report_year",
+ "legal_entity_name",
+ "legal_entity_edrpou",
+ "party_main_name",
+ "party_main_EDRPOU",
+ "report_id"
+]

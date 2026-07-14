@@ -1,0 +1,22 @@
+[
+ "donation_type",
+ "donor_name",
+ "donor_edrpou",
+ "donor_type",
+ "donor_birth_date",
+ "donor_location",
+ "donation_date",
+ "donation_metodological_price",
+ "donation_contract_price",
+ "object_registration_number",
+ "officeType",
+ "report_type",
+ "report_period",
+ "report_year",
+ "legal_entity_name",
+ "legal_entity_edrpou",
+ "party_main_name",
+ "party_main_EDRPOU",
+ "legal_entity_region",
+ "report_id"
+]

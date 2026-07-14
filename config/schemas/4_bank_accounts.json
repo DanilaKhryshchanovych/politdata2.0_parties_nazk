@@ -1,0 +1,20 @@
+[
+ "bank_name",
+ "bank_edrpou",
+ "account_type",
+ "account_number",
+ "balance_for_first_day_of_period",
+ "income_during_reporting_period",
+ "spent_during_reporting_period",
+ "balance_for_last_day_of_period",
+ "officeType",
+ "report_type",
+ "report_period",
+ "report_year",
+ "legal_entity_name",
+ "legal_entity_edrpou",
+ "legal_entity_region",
+ "party_main_name",
+ "party_main_EDRPOU",
+ "report_id"
+]

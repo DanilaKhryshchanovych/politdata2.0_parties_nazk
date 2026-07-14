@@ -1,0 +1,23 @@
+[
+ "legal_entity_name",
+ "legal_entity_edrpou",
+ "officeType",
+ "party_main_name",
+ "party_main_EDRPOU",
+ "2.1_local_orgs_info.xlsx",
+ "3.1_property_objects.xlsx",
+ "3.2_movable_property.xlsx",
+ "3.3_vehicles.xlsx",
+ "3.4_securities.xlsx",
+ "3.5_intangible_assets.xlsx",
+ "4_bank_accounts.xlsx",
+ "5_private_contributions.xlsx",
+ "6_in_kind_donations.xlsx",
+ "7_state_funding_transactions.xlsx",
+ "8_other_income.xlsx",
+ "9.1_expenditures_public_funding.xlsx",
+ "9.2_expenditures_private_funds.xlsx",
+ "9.3_false_donations_info.xlsx",
+ "9.5_false_in_kind_donations_info.xlsx",
+ "10_liabilities.xlsx"
+]
