@@ -4,8 +4,7 @@
 
 Готовий до аналізу набір таблиць про фінанси політичних партій України. Дані беруться з
 офіційного публічного API ПОЛІТДАТИ (НАЗК) `https://politdata.nazk.gov.ua/api/v2`, автоматично
-чистяться й збагачуються, і щотижня оновлюються. Це продовження датасету
-[texty/politdata_nazk_tables](https://github.com/texty/politdata_nazk_tables) на новому API.
+чистяться й збагачуються, і щотижня оновлюються. 
 
 ## Завантажити таблиці (Excel)
 
@@ -57,4 +56,5 @@
 
 ---
 
-*Хочете зібрати таблиці самостійно або зрозуміти, як влаштований пайплайн? — [docs/development.md](docs/development.md).*
+Це продовження датасету
+[texty/politdata_nazk_tables](https://github.com/texty/politdata_nazk_tables) на новому API.
